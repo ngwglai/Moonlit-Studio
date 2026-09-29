@@ -1,0 +1,17 @@
+{
+  "name": "moonlit-galstudio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Offline visual novel editor and runtime",
+  "scripts": {
+    "build": "python3 build.py",
+    "test": "node --test tests/core.test.cjs",
+    "test:ui": "node --test tests/ui.test.cjs",
+    "test:all": "node --test tests/*.test.cjs"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "fake-indexeddb": "6.2.5",
+    "linkedom": "0.18.13"
+  }
+}

@@ -1,0 +1,280 @@
+{
+  "schemaVersion": 1,
+  "id": "moonlit-demo-v1",
+  "title": "雨停之前",
+  "author": "Moonlit Studio",
+  "description": "一封没有署名的来信，两个不同的答案。一个可随意修改的短篇示例。",
+  "startScene": "arrival",
+  "settings": {
+    "accent": "#d3ae70",
+    "textSpeed": 32,
+    "autoDelay": 1800,
+    "fontSize": 24,
+    "aspect": "16/9",
+    "skipUnread": false
+  },
+  "characters": [
+    {
+      "id": "lin",
+      "name": "林间",
+      "color": "#87c5d1",
+      "asset": ""
+    },
+    {
+      "id": "you",
+      "name": "{{player}}",
+      "color": "#d3ae70",
+      "asset": ""
+    }
+  ],
+  "variables": [
+    {
+      "name": "trust",
+      "type": "number",
+      "value": 0
+    },
+    {
+      "name": "player",
+      "type": "string",
+      "value": "旅人"
+    }
+  ],
+  "assets": [],
+  "scenes": [
+    {
+      "id": "arrival",
+      "name": "01 · 雨夜来信",
+      "notes": "建立场景 → 对话 → 第一次选择",
+      "next": "",
+      "nodes": [
+        {
+          "id": "n_6c869fae-f047-48e6-a762-09a1b4796906",
+          "type": "background",
+          "asset": "",
+          "color": "#203b4b",
+          "transition": "fade"
+        },
+        {
+          "id": "n_2dc2997a-345b-4917-9721-9fa35c63c8cb",
+          "type": "narration",
+          "text": "雨滴在车站的屋檐下连成一条线。\n最后一班列车已经离开，你却在长椅上发现了一封信。"
+        },
+        {
+          "id": "n_cdc1a55f-82f2-418f-bf8c-cc33cc90a564",
+          "type": "dialogue",
+          "character": "lin",
+          "text": "你也在等一个不会来的人吗？",
+          "voice": ""
+        },
+        {
+          "id": "n_3cfd1b70-cbff-4aea-9d2a-b0fc6eb13d7c",
+          "type": "dialogue",
+          "character": "you",
+          "text": "我只是……不太想回去。",
+          "voice": ""
+        },
+        {
+          "id": "n_fe1fa05b-7369-4014-a14b-c791ec799a2a",
+          "type": "dialogue",
+          "character": "lin",
+          "text": "那就陪我等到雨停吧。也许这封信，正好是写给你的。",
+          "voice": ""
+        },
+        {
+          "id": "n_3dde637c-671e-4351-8e63-764b29b507fb",
+          "type": "choice",
+          "text": "她把信递了过来。",
+          "options": [
+            {
+              "text": "接过信，听听她的故事",
+              "target": "letter",
+              "condition": null
+            },
+            {
+              "text": "把伞递给她，一起离开车站",
+              "target": "umbrella",
+              "condition": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "letter",
+      "name": "02 · 未寄出的信",
+      "notes": "示例：增加好感度，跳转公共场景",
+      "next": "after",
+      "nodes": [
+        {
+          "id": "n_2aa0e411-5648-45b8-ac1d-cf1edf0cc178",
+          "type": "set",
+          "variable": "trust",
+          "op": "+=",
+          "value": 2
+        },
+        {
+          "id": "n_072bc5f3-0229-4aa3-a087-251ae420b2d1",
+          "type": "background",
+          "asset": "",
+          "color": "#304353",
+          "transition": "fade"
+        },
+        {
+          "id": "n_63af7d6a-8e81-4a9e-a7df-db8af66a2115",
+          "type": "dialogue",
+          "character": "you",
+          "text": "信封上没有名字。你怎么知道是给我的？",
+          "voice": ""
+        },
+        {
+          "id": "n_1652235a-d0ea-4f80-8e9b-1443c9c074a9",
+          "type": "dialogue",
+          "character": "lin",
+          "text": "因为每一个在这里停下来的人，都需要有人说一句——",
+          "voice": ""
+        },
+        {
+          "id": "n_09026ed3-87c0-4cfc-b29a-35ab2679709e",
+          "type": "dialogue",
+          "character": "lin",
+          "text": "「你已经走得很远了，休息一下也没关系。」",
+          "voice": ""
+        },
+        {
+          "id": "n_72b6061f-c013-46c5-8592-7322df2d2f22",
+          "type": "narration",
+          "text": "你把信小心地折好。雨声似乎没有那么冷了。"
+        }
+      ]
+    },
+    {
+      "id": "umbrella",
+      "name": "03 · 同一把伞",
+      "notes": "另一条路径，汇入公共场景",
+      "next": "after",
+      "nodes": [
+        {
+          "id": "n_49fcc960-8b1e-429e-874f-faa52378bb19",
+          "type": "set",
+          "variable": "trust",
+          "op": "+=",
+          "value": 1
+        },
+        {
+          "id": "n_eeb33fa6-b0b8-4af4-a895-9b9c43717322",
+          "type": "background",
+          "asset": "",
+          "color": "#243f44",
+          "transition": "fade"
+        },
+        {
+          "id": "n_2d3dc2b0-8f1d-47f8-b836-ea391d4e6b84",
+          "type": "dialogue",
+          "character": "you",
+          "text": "不用等雨停。我们可以一起走。",
+          "voice": ""
+        },
+        {
+          "id": "n_d9226ab5-c6c7-421c-ae4a-a85aa817a49b",
+          "type": "dialogue",
+          "character": "lin",
+          "text": "……你总是这样替陌生人做决定吗？",
+          "voice": ""
+        },
+        {
+          "id": "n_cc7eb04b-d042-4064-a543-70c36634abd2",
+          "type": "dialogue",
+          "character": "you",
+          "text": "只在我刚好带了伞的时候。",
+          "voice": ""
+        },
+        {
+          "id": "n_3b602a13-7289-404a-b816-9be7e2c29ebe",
+          "type": "narration",
+          "text": "她笑了。两个人的脚步声，在雨里慢慢重叠。"
+        }
+      ]
+    },
+    {
+      "id": "after",
+      "name": "04 · 雨停之前",
+      "notes": "示例：根据变量选择结局",
+      "next": "",
+      "nodes": [
+        {
+          "id": "n_446058ed-b1f8-44c3-8041-392d6ff975df",
+          "type": "narration",
+          "text": "远处传来了第一班晨车的鸣笛。\n你们之间的信任，悄悄变成了 {{trust}}。"
+        },
+        {
+          "id": "n_00b16272-2c88-409a-a9fd-21384d0f9c8a",
+          "type": "branch",
+          "condition": {
+            "variable": "trust",
+            "op": ">=",
+            "value": 2
+          },
+          "yes": "dawn",
+          "no": "road"
+        }
+      ]
+    },
+    {
+      "id": "dawn",
+      "name": "END A · 下一封信",
+      "notes": "信件路线结局",
+      "next": "",
+      "nodes": [
+        {
+          "id": "n_f3555cfa-3a03-4742-bba3-f1fa38966dd7",
+          "type": "background",
+          "asset": "",
+          "color": "#48536a",
+          "transition": "fade"
+        },
+        {
+          "id": "n_e4f22111-f95a-4ca3-8333-7935d200f328",
+          "type": "dialogue",
+          "character": "lin",
+          "text": "下次见面的时候，换你写一封信给我吧。",
+          "voice": ""
+        },
+        {
+          "id": "n_3b1a5ddd-f2ef-49e4-9135-33224c871cbb",
+          "type": "end",
+          "title": "下一封信",
+          "text": "有些相遇，从一个愿意倾听的人开始。"
+        }
+      ]
+    },
+    {
+      "id": "road",
+      "name": "END B · 并肩而行",
+      "notes": "雨伞路线结局",
+      "next": "",
+      "nodes": [
+        {
+          "id": "n_470bb18f-e541-48d0-ab3e-4341c9771707",
+          "type": "background",
+          "asset": "",
+          "color": "#415a55",
+          "transition": "fade"
+        },
+        {
+          "id": "n_8b11b832-7c0b-4869-b380-8b1da9d7bc67",
+          "type": "dialogue",
+          "character": "lin",
+          "text": "雨好像停了。……不过，再走一会儿也可以。",
+          "voice": ""
+        },
+        {
+          "id": "n_b7327bca-6b58-466f-a2e6-66fb68798783",
+          "type": "end",
+          "title": "并肩而行",
+          "text": "有些答案，就藏在一起走过的路上。"
+        }
+      ]
+    }
+  ],
+  "updatedAt": 1790130700373
+}

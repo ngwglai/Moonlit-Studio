@@ -1,0 +1,34 @@
+✔ demo validates and both branches reach different endings (6.453408ms)
+✔ rollback across a choice restores variables and options (0.695454ms)
+✔ save round trip preserves exact cursor and backlog (2.444678ms)
+✔ modified project or another project rejects incompatible saves (0.81539ms)
+✔ empty option condition means always visible; comparison uses variable type (0.189419ms)
+✔ unavailable conditional choices produce a useful error (0.218912ms)
+✔ instantaneous cyclic jumps cannot freeze runtime (2.841122ms)
+✔ unreachable scenes and broken references are diagnosed (1.798011ms)
+✔ interpolation never executes code (0.156931ms)
+✔ actor replacement, hide, background and audio survive scene transition (0.644048ms)
+✔ wait and video suspend then resume execution (0.248356ms)
+✔ typed variables reject illegal math (0.279881ms)
+✔ unsafe asset schemes and prototype names are rejected (0.938461ms)
+✔ normalization rejects malformed files without executing or resetting them (2.130515ms)
+✔ linear preview stops at selected node and applies earlier transforms (0.34655ms)
+✔ text variables preserve numeric-looking strings on assignment and comparison (1.229059ms)
+✔ malformed saved backlog and variable types are rejected before mutation (3.491749ms)
+✔ arithmetic non-numeric values are caught before runtime (0.255917ms)
+✔ all editor workspaces render and inspector controls update real project (54.613664ms)
+✔ dialogue insertion, live typing, undo button, copy/paste and reorder (35.115512ms)
+✔ batch dialogue import creates cast, scenes and sequential next links (19.39824ms)
+✔ project snapshots restore full data and keep version before restoration (30.796416ms)
+✔ player controls traverse story, save/load, rollback, history and title (27.716953ms)
+✔ video rollback restores a playable video instead of a stuck screen (3.8456ms)
+✔ exported HTML is self-contained and safely embeds hostile-looking dialogue (7.953716ms)
+✔ newly generated editor HTML parses and boots as a single offline file (22.171392ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 26
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3886.896868

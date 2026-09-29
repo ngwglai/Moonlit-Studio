@@ -1,0 +1,17 @@
+(async function(){
+ const results=document.getElementById('checks');let fails=0,total=0;
+ const check=async(name,fn)=>{total++;const li=document.createElement('li');try{const detail=await fn();li.className='pass';li.textContent='✓ '+name+(detail?' — '+detail:'');}catch(e){fails++;li.className='fail';li.textContent='✕ '+name+' — '+e.message;}results.append(li);};
+ const assert=(x,msg)=>{if(!x)throw Error(msg||'检查不通过');};
+ await check('JavaScript 和离线引擎',()=>{assert(typeof GalCore.Engine==='function');return '引擎已加载，不需要网络';});
+ await check('示例工程格式',()=>{assert(GalCore.validate(GalCore.demo()).length===0);return '场景、变量、角色与跳转均有效';});
+ for(const option of [0,1])await check('示例路线 '+(option+1),()=>{const e=new GalCore.Engine(GalCore.demo());for(let i=0;i<100&&!e.state.ended;i++)e.state.choice?e.choose(option):e.advance();assert(e.state.ended);assert(e.state.scene===(option===0?'dawn':'road'));return e.state.ending.title;});
+ await check('分支回退',()=>{const e=new GalCore.Engine(GalCore.demo());while(!e.state.choice)e.advance();e.choose(0);e.rollback();assert(e.state.vars.trust===0&&e.state.choice.options.length===2);return '选项和变量一起恢复';});
+ await check('存档序列化',()=>{const p=GalCore.demo(),a=new GalCore.Engine(p);a.advance();const b=new GalCore.Engine(p);b.load(JSON.parse(JSON.stringify(a.save())));assert(JSON.stringify(a.state)===JSON.stringify(b.state));return '读写一致';});
+ await check('浏览器存档空间',()=>{const key='moonlit.diagnostics.'+Date.now();localStorage.setItem(key,'test');assert(localStorage.getItem(key)==='test');localStorage.removeItem(key);return '可保存玩家进度';});
+ await check('项目自动保存数据库',()=>new Promise((resolve,reject)=>{const request=indexedDB.open('moonlit-diagnostics-'+Date.now(),1);request.onupgradeneeded=()=>request.result.createObjectStore('test');request.onerror=()=>reject(request.error);request.onsuccess=()=>{const db=request.result;const tx=db.transaction('test','readwrite');tx.objectStore('test').put({ok:true},'test');tx.onerror=()=>reject(tx.error);tx.oncomplete=()=>{const tx2=db.transaction('test');const r=tx2.objectStore('test').get('test');r.onsuccess=()=>{const ok=r.result?.ok;const name=db.name;db.close();indexedDB.deleteDatabase(name);ok?resolve('可自动保存编辑项目'):reject(Error('读回失败'));};r.onerror=()=>reject(r.error);};};}));
+ await check('对话框和文件读取',()=>{assert(typeof document.createElement('dialog').showModal==='function','请使用较新版本的 Chrome / Edge');assert(typeof FileReader==='function');assert(typeof Blob==='function');return '项目和素材导入功能可用';});
+ await check('音频格式支持',()=>{const a=new Audio();const types=[['MP3','audio/mpeg'],['WAV','audio/wav'],['OGG','audio/ogg']].filter(([name,mime])=>a.canPlayType(mime));assert(types.length);return types.map(x=>x[0]).join(' / ');});
+ await check('视频格式支持',()=>{const a=document.createElement('video');const types=[['MP4','video/mp4'],['WebM','video/webm']].filter(([name,mime])=>a.canPlayType(mime));assert(types.length);return types.map(x=>x[0]).join(' / ');});
+ document.getElementById('summary').textContent=`${total-fails} / ${total} 项通过`+(fails?'。请参考下方失败项目；即使自动保存不可用，仍可导出项目文件。':'。可以开始创作。');
+ document.getElementById('tone').onclick=()=>{try{const AC=window.AudioContext||window.webkitAudioContext;const ctx=new AC();const o=ctx.createOscillator(),g=ctx.createGain();o.frequency.value=523.25;g.gain.value=.05;o.connect(g);g.connect(ctx.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.4);o.stop(ctx.currentTime+.45);o.onended=()=>ctx.close();}catch(e){alert(e.message);}};
+})();
